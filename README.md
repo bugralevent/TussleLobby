@@ -1,6 +1,7 @@
 # TussleLobby
 
 Cloud based lobby manager for Tussle co-op horror game. Written in javascript(based on NodeJS).
+Not implemented cloud system, still work in progress...
 
 # Joseph's Myers md5 implementation edited version example : 
 ```
