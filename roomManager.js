@@ -1,7 +1,9 @@
 var room = require('./room.js');
 var md5 = require('./md5.js');
+var c = require('./cycle.js');
 var md5Class = new md5();
 var events = require('events');
+var util = require('util');
 module.exports = function(){
 
   this.eventEmitter = new events.EventEmitter();
@@ -12,11 +14,11 @@ module.exports = function(){
 
   var index = 0;
   var playerIndex = 0;
-
   this.connect = function connect(player){
     if(this.playerLimit > (playerIndex + 1)){
       this.players[playerIndex] = player;
       playerIndex++;
+      player.socket.emit('update-rooms',JSON.stringify(JSON.decycle(this.rooms)));
       return true;
     }
     return false;
@@ -131,4 +133,7 @@ module.exports = function(){
     }
     return null;
   }
+
+
+
 };
