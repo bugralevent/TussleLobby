@@ -13,20 +13,21 @@ module.exports = function(){
   this.playersCount = function playersCount(){
     return connectionCount;
   };
-  this.isAvaiable = function isAvaiable(){
-    if(this.playersCount() !== this.connectionLimit && this.isStarted === false)
+  this.isAvailable = function isAvailable(){
+    if(this.playersCount() !== this.connectionLimit && this.isStarted === false){
       return true;
-    else
-      return false;
+    }
+    return false;
   };
   this.connect = function connect(player, owner){
-    if(this.isAvaiable()){
+    if(this.isAvailable()){
       this.players[connectionCount] = player;
       connectionCount += 1;
+      player.connectRoom(this);
       this.owner = ( owner !== false) ? player:null;
       return true;
-    }else
-      return false;
+    }
+    return false;
   };
   this.disconnect = function disconnect(player){
     if(connectionCount > 0){
@@ -39,14 +40,14 @@ module.exports = function(){
         this.owner = this.players[0];
       player.disconnectRoom();
       return true;
-    }else
-      return false;
+    }
+    return false;
   };
   this.isReady = function isReady(){
-    if(connectionCount === this.connectionLimit && this.owner !== null)
+    if(connectionCount === this.connectionLimit && this.owner !== null){
       return true;
-    else
-      return false;
+    }
+    return false;
   };
 
   function findByID(searchIn,searchID){
